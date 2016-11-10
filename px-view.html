@@ -157,6 +157,7 @@
       _onShown: function() {
         if (this.active) {
           this._element.style.display = this.display;
+	  this._element.isElementShown = true;
         } else {
           this.set('status', 'hidden');
         }
@@ -166,6 +167,7 @@
       _onHidden: function() {
         if (!this.active) {
           this._element.style.display = 'none';
+	  this._element.isElementShown = false;
         } else {
           this.set('status', 'shown');
         }

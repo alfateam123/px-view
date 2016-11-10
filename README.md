@@ -1,6 +1,12 @@
 Px-View
 -----------------------------------------------
 
+## Local Fixes
+
+Each view must expose a `isElementShown` boolean property to be notified
+every time the view is shown to the user or not (e.g. enable automatic refresh
+only when the view is visible)
+
 ## Overview
 
 Px-View is a Predix Experience ('Px') component
