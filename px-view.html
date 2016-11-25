@@ -124,8 +124,18 @@
       },
 
       observers: [
-        '_checkStatus(status, active, preload, display, _elementTagName)',
+        '_updateElementData(elementData.*)',
+        '_checkStatus(status, active, preload, display, _elementTagName)'
       ],
+
+      _updateElementData: function(newElementData){
+          //console.log("[winterPxView::updateElementData]", this._element, this.elementData);
+          if(this._element){
+            //console.log("[winterPxView::updateElementData] setting it!");
+//            this._element.setAttribute("element-data", JSON.stringify(this.elementData));
+            this.set("_element.elementData", JSON.stringify(this.elementData))
+          }
+      },
 
       _element: null, // Reference to the loaded view DOM element
 
@@ -176,15 +186,21 @@
       // _stateFunctions is an object literal with references to functions
       // this maps state string values to state functions
       _getStateFunction: function(status) {
+          console.log("new status: ", status);
         var stateFunctions = {
           'unloaded': this._onUnloaded,
           'loading': this._onLoading,
           'loaded': this._onLoaded,
           'attached': this._onAttached,
           'shown': this._onShown,
-          'hidden': this._onHidden
+          'hidden': this._onHidden,
+          "failed": this._onFailed
         };
         return stateFunctions[status];
+      },
+
+      _onFailed: function(){
+          // nothing to do
       },
 
       // 'unloaded' -> 'loading' -> 'loaded' || 'failed' -> 'attached' -> 'hidden' || 'shown'
